@@ -499,6 +499,7 @@ export class Controlled extends React.Component<IControlledCodeMirror, any> {
       doc.setHistory(this.mirror.getHistory());
       this.mirror.redo();
     } else {
+      this.mirror.setValue(this.props.value)
       this.mirror.replaceRange(deferred.text, deferred.from, deferred.to, deferred.origin);
     }
 
