@@ -12,7 +12,11 @@
     "transpile": "tsc",
     "posttranspile": "gulp ts-scrub",
     "pretest": "npm run transpile",
-    "test": "jest"
+    "test": "jest",
+    "release": "mkdir -p ./releases && cd ./releases && npm pack .."
+  },
+  "engines": {
+    "node": "12"
   },
   "jest": {
     "collectCoverage": true,
