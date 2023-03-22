@@ -5,10 +5,18 @@
 [![Downloads](https://img.shields.io/npm/dm/react-codemirror2.svg?style=flat-square)](https://www.npmjs.com/package/react-codemirror2)
 [![NPM Version](https://img.shields.io/npm/v/react-codemirror2.svg?style=flat-square)](https://www.npmjs.com/package/react-codemirror2)
 
+# Releasing
+
+To release a new version of this package:
+
+1. Update the semver in the [package.json](./package.json)
+2. Run `nvm install && nvm use`
+3. Run `npm run release`
+4. Update the dependencies for all the `package.json` files in [oc-builder](https://github.com/OneCloudInc/oc-builder)
+
 ### react-codemirror2
 
 demo @ [scniro.github.io/react-codemirror2](https://scniro.github.io/react-codemirror2/)
-
 
 ## Install
 
@@ -19,34 +27,34 @@ npm install react-codemirror2 codemirror --save
 `react-codemirror2` ships with the notion of an [uncontrolled](https://reactjs.org/docs/uncontrolled-components.html) and [controlled](https://reactjs.org/docs/forms.html#controlled-components) component. `UnControlled` consists of a simple wrapper largely powered by the inner workings of `codemirror` itself, while `Controlled` will demand state management from the user, preventing codemirror changes unless properly handled via `value`. The latter will offer more control and likely be more appropriate with [redux](http://redux.js.org/) heavy apps.
 
 ## uncontrolled usage
+
 ```jsx
-import {UnControlled as CodeMirror} from 'react-codemirror2'
+import { UnControlled as CodeMirror } from "react-codemirror2";
 
 <CodeMirror
-  value='<h1>I ♥ react-codemirror2</h1>'
+  value="<h1>I ♥ react-codemirror2</h1>"
   options={{
-    mode: 'xml',
-    theme: 'material',
-    lineNumbers: true
+    mode: "xml",
+    theme: "material",
+    lineNumbers: true,
   }}
-  onChange={(editor, data, value) => {
-  }}
-/>
+  onChange={(editor, data, value) => {}}
+/>;
 ```
 
 ## controlled usage
+
 ```jsx
-import {Controlled as CodeMirror} from 'react-codemirror2'
+import { Controlled as CodeMirror } from "react-codemirror2";
 
 <CodeMirror
   value={this.state.value}
   options={options}
   onBeforeChange={(editor, data, value) => {
-    this.setState({value});
+    this.setState({ value });
   }}
-  onChange={(editor, data, value) => {
-  }}
-/>
+  onChange={(editor, data, value) => {}}
+/>;
 ```
 
 ## requiring codemirror resources
@@ -62,32 +70,33 @@ Since codemirror ships mostly unconfigured, the user is left with the responsibi
 > note that the base codemirror.css file is required in all use cases
 
 ```css
-@import 'codemirror/lib/codemirror.css';
-@import 'codemirror/theme/material.css';
+@import "codemirror/lib/codemirror.css";
+@import "codemirror/theme/material.css";
 ```
 
 ```jsx
-import CodeMirror from 'react-codemirror2';
-require('codemirror/mode/xml/xml');
-require('codemirror/mode/javascript/javascript');
+import CodeMirror from "react-codemirror2";
+require("codemirror/mode/xml/xml");
+require("codemirror/mode/javascript/javascript");
 ```
 
 ## props
 
-| prop         | type&nbsp;*`default`*  | components                        | description                                                                                                           |
-|--------------|------------------------|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| `autoCursor` | boolean&nbsp;*`true`*  | `Controlled`&nbsp;`UnControlled`  | should component cursor position correct when `value` changed                                                         |                                                                                   |
-| `autoScroll` | boolean&nbsp;*`true`*  | `Controlled`&nbsp;`UnControlled`  | should component scroll cursor position into view when `value` changed                                                |
-| `className`  | string                 | `Controlled`&nbsp;`UnControlled`  | pass through class *`class="react-codemirror2 className"`*                                                            |
-| `defineMode` | object                 | `Controlled`&nbsp;`UnControlled`  | pass a [custom mode](http://marijnhaverbeke.nl/blog/codemirror-mode-system.html) via `{name: 'custom', fn: myModeFn}` |
-| `detach`     | boolean                | `UnControlled`                    | should component ignore new props                                                                                     |
-| `options`    | object                 | `Controlled`&nbsp;`UnControlled`  | [codemirror configuration](https://codemirror.net/doc/manual.html#config)                                             |
-| `value`      | string                 | *`Controlled`&nbsp;`UnControlled` | * component value _**must be managed for controlled components**_                                                     |
+| prop         | type&nbsp;_`default`_ | components                         | description                                                                                                           |
+| ------------ | --------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --- |
+| `autoCursor` | boolean&nbsp;_`true`_ | `Controlled`&nbsp;`UnControlled`   | should component cursor position correct when `value` changed                                                         |     |
+| `autoScroll` | boolean&nbsp;_`true`_ | `Controlled`&nbsp;`UnControlled`   | should component scroll cursor position into view when `value` changed                                                |
+| `className`  | string                | `Controlled`&nbsp;`UnControlled`   | pass through class _`class="react-codemirror2 className"`_                                                            |
+| `defineMode` | object                | `Controlled`&nbsp;`UnControlled`   | pass a [custom mode](http://marijnhaverbeke.nl/blog/codemirror-mode-system.html) via `{name: 'custom', fn: myModeFn}` |
+| `detach`     | boolean               | `UnControlled`                     | should component ignore new props                                                                                     |
+| `options`    | object                | `Controlled`&nbsp;`UnControlled`   | [codemirror configuration](https://codemirror.net/doc/manual.html#config)                                             |
+| `value`      | string                | \*`Controlled`&nbsp;`UnControlled` | \* component value _**must be managed for controlled components**_                                                    |
 
 ## props cont. (wrapped codemirror [programming api](https://codemirror.net/doc/manual.html#api))
 
-- `cursor` - *[setCursor](https://codemirror.net/doc/manual.html#setCursor)*
-> will programmatically set cursor to the position specified
+- `cursor` - _[setCursor](https://codemirror.net/doc/manual.html#setCursor)_
+  > will programmatically set cursor to the position specified
+
 ```jsx
 <CodeMirror
   [...]
@@ -98,8 +107,10 @@ require('codemirror/mode/javascript/javascript');
   onCursor={(editor, data) => {}}
 />
 ```
-- `scroll` - *[scrollTo](https://codemirror.net/doc/manual.html#scrollTo)*
-> will programmatically scroll to the specified coordinate
+
+- `scroll` - _[scrollTo](https://codemirror.net/doc/manual.html#scrollTo)_
+  > will programmatically scroll to the specified coordinate
+
 ```jsx
 <CodeMirror
   [...]
@@ -110,8 +121,10 @@ require('codemirror/mode/javascript/javascript');
   onScroll={(editor, data) => {}}
 />
 ```
-- `selection={{ranges: array<{anchor, head}>, focus?: boolean}` - *[setSelections](https://codemirror.net/doc/manual.html#setSelections)*
-> will programmatically select the ranges specified
+
+- `selection={{ranges: array<{anchor, head}>, focus?: boolean}` - _[setSelections](https://codemirror.net/doc/manual.html#setSelections)_
+  > will programmatically select the ranges specified
+
 ```jsx
 <CodeMirror
   [...]
@@ -129,43 +142,43 @@ require('codemirror/mode/javascript/javascript');
 ## events
 
 | event                                                            | components                       | description                                                                                                 |
-|------------------------------------------------------------------|----------------------------------|-------------------------------------------------------------------------------------------------------------|
+| ---------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | **editorDidAttach(editor)**                                      | `UnControlled`                   | component is now **responding** to new props                                                                |
 | **editorDidConfigure(editor)**                                   | `Controlled`&nbsp;`UnControlled` | component configuration has been set                                                                        |
 | **editorDidDetach(editor)**                                      | `UnControlled`                   | component is now **ignoring** new props                                                                     |
-| **editorDidMount(editor,&nbsp;_[next]_)**                        | `Controlled`&nbsp;`UnControlled` | * invoking optional `next` will trigger `editorDidConfigure`                                                |
+| **editorDidMount(editor,&nbsp;_[next]_)**                        | `Controlled`&nbsp;`UnControlled` | \* invoking optional `next` will trigger `editorDidConfigure`                                               |
 | **editorWillUnmount(editor)**                                    | `Controlled`&nbsp;`UnControlled` | invoked before [`componentWillUnmount`](https://reactjs.org/docs/react-component.html#componentwillunmount) |
-| **onBeforeChange(editor,&nbsp;data,&nbsp;value,&nbsp;_[next]_)** | `Controlled`&nbsp;`UnControlled` | * if used, `next` is returned via `UnControlled` and *must* be invoked to trigger onChange                  |
+| **onBeforeChange(editor,&nbsp;data,&nbsp;value,&nbsp;_[next]_)** | `Controlled`&nbsp;`UnControlled` | * if used, `next` is returned via `UnControlled` and *must\* be invoked to trigger onChange                 |
 | **onChange(editor,&nbsp;data,&nbsp;value)**                      | `Controlled`&nbsp;`UnControlled` | the component value has been changed                                                                        |
 
 ## events cont. [wrapped codemirror events](https://codemirror.net/doc/manual.html#events)
 
-- `onBlur(editor, event)` - *[blur](https://codemirror.net/doc/manual.html#event_blur)*
-- `onContextMenu(editor, event)` - *[contextmenu](https://codemirror.net/doc/manual.html#event_dom)*
-- `onCopy(editor)` - *[copy](https://codemirror.net/doc/manual.html#event_dom)*
-- `onCursor(editor, data)`- *[cursorActivity](https://codemirror.net/doc/manual.html#event_doc_cursorActivity)*
-- `onCursorActivity(editor)` - *[cursorActivity](https://codemirror.net/doc/manual.html#event_cursorActivity)*
-- `onCut(editor)` - *[cut](https://codemirror.net/doc/manual.html#event_dom)*
-- `onDblClick(editor, event)` - *[dblclick](https://codemirror.net/doc/manual.html#event_dom)*
-- `onDragEnter(editor, event)` - *[dragenter](https://codemirror.net/doc/manual.html#event_dom)*
-- `onDragOver(editor, event)` - *[dragover](https://codemirror.net/doc/manual.html#event_dom)*
-- `onDragLeave(editor, event)` - *[dragleave](https://codemirror.net/doc/manual.html#event_dom)*
-- `onDragStart(editor, event)` - *[dragstart](https://codemirror.net/doc/manual.html#event_dom)*
-- `onDrop(editor, event)` - *[drop](https://codemirror.net/doc/manual.html#event_dom)*
-- `onFocus(editor, event)` - *[focus](https://codemirror.net/doc/manual.html#event_focus)*
-- `onGutterClick(editor, lineNumber, gutter, event)` - *[gutterClick](https://codemirror.net/doc/manual.html#event_gutterClick)*
-- `onInputRead(editor, changeObj)` - *[gutterClick](https://codemirror.net/doc/manual.html#events)*
-- `onKeyDown(editor, event)` - *[keydown](https://codemirror.net/doc/manual.html#event_dom)*
-- `onKeyHandled(editor, key, event)` - *[keyhandled](https://codemirror.net/doc/manual.html#events)*
-- `onKeyPress(editor, event)` - *[keypress](https://codemirror.net/doc/manual.html#event_dom)*
-- `onKeyUp(editor, event)` - *[keyup](https://codemirror.net/doc/manual.html#event_dom)*
-- `onMouseDown(editor, event)` - *[mousedown](https://codemirror.net/doc/manual.html#event_dom)*
-- `onPaste(editor)` - *[paste](https://codemirror.net/doc/manual.html#event_dom)*
-- `onScroll(editor, data)` - *[scroll](https://codemirror.net/doc/manual.html#event_scroll)*
-- `onSelection(editor, data)` - *[beforeSelectionChange](https://codemirror.net/doc/manual.html#event_doc_beforeSelectionChange)*
-- `onTouchStart(editor, event)` - *[touchstart](https://codemirror.net/doc/manual.html#event_dom)*
-- `onUpdate(editor, event)` - *[update](https://codemirror.net/doc/manual.html#event_update)*
-- `onViewportChange(editor, from, to)` - *[viewportChange](https://codemirror.net/doc/manual.html#event_viewportChange)*
+- `onBlur(editor, event)` - _[blur](https://codemirror.net/doc/manual.html#event_blur)_
+- `onContextMenu(editor, event)` - _[contextmenu](https://codemirror.net/doc/manual.html#event_dom)_
+- `onCopy(editor)` - _[copy](https://codemirror.net/doc/manual.html#event_dom)_
+- `onCursor(editor, data)`- _[cursorActivity](https://codemirror.net/doc/manual.html#event_doc_cursorActivity)_
+- `onCursorActivity(editor)` - _[cursorActivity](https://codemirror.net/doc/manual.html#event_cursorActivity)_
+- `onCut(editor)` - _[cut](https://codemirror.net/doc/manual.html#event_dom)_
+- `onDblClick(editor, event)` - _[dblclick](https://codemirror.net/doc/manual.html#event_dom)_
+- `onDragEnter(editor, event)` - _[dragenter](https://codemirror.net/doc/manual.html#event_dom)_
+- `onDragOver(editor, event)` - _[dragover](https://codemirror.net/doc/manual.html#event_dom)_
+- `onDragLeave(editor, event)` - _[dragleave](https://codemirror.net/doc/manual.html#event_dom)_
+- `onDragStart(editor, event)` - _[dragstart](https://codemirror.net/doc/manual.html#event_dom)_
+- `onDrop(editor, event)` - _[drop](https://codemirror.net/doc/manual.html#event_dom)_
+- `onFocus(editor, event)` - _[focus](https://codemirror.net/doc/manual.html#event_focus)_
+- `onGutterClick(editor, lineNumber, gutter, event)` - _[gutterClick](https://codemirror.net/doc/manual.html#event_gutterClick)_
+- `onInputRead(editor, changeObj)` - _[gutterClick](https://codemirror.net/doc/manual.html#events)_
+- `onKeyDown(editor, event)` - _[keydown](https://codemirror.net/doc/manual.html#event_dom)_
+- `onKeyHandled(editor, key, event)` - _[keyhandled](https://codemirror.net/doc/manual.html#events)_
+- `onKeyPress(editor, event)` - _[keypress](https://codemirror.net/doc/manual.html#event_dom)_
+- `onKeyUp(editor, event)` - _[keyup](https://codemirror.net/doc/manual.html#event_dom)_
+- `onMouseDown(editor, event)` - _[mousedown](https://codemirror.net/doc/manual.html#event_dom)_
+- `onPaste(editor)` - _[paste](https://codemirror.net/doc/manual.html#event_dom)_
+- `onScroll(editor, data)` - _[scroll](https://codemirror.net/doc/manual.html#event_scroll)_
+- `onSelection(editor, data)` - _[beforeSelectionChange](https://codemirror.net/doc/manual.html#event_doc_beforeSelectionChange)_
+- `onTouchStart(editor, event)` - _[touchstart](https://codemirror.net/doc/manual.html#event_dom)_
+- `onUpdate(editor, event)` - _[update](https://codemirror.net/doc/manual.html#event_update)_
+- `onViewportChange(editor, from, to)` - _[viewportChange](https://codemirror.net/doc/manual.html#event_viewportChange)_
 
 ## FAQ
 

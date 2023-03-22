@@ -13,7 +13,7 @@
     "posttranspile": "gulp ts-scrub",
     "pretest": "npm run transpile",
     "test": "jest",
-    "release": "rm -rf ./releases && mkdir -p ./releases && cd ./releases && PACK_NAME=$(npm pack ..) && mv \"${PACK_NAME}\" react-codemirror2.tgz"
+    "release": "mkdir -p ./releases && cd ./releases && npm pack .."
   },
   "engines": {
     "node": "12"
